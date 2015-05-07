@@ -1,14 +1,15 @@
 %{?!_licensedir:%global license %%doc}
+%{!?upstream_version: %global upstream_version %{version}}
 
 Name:           ahc-tools
 Summary:        Tools for RDO-manager automatic health checks
-Version:        0.1
+Version:        0.1.0
 Release:        1%{?dist}
 License:        ASL 2.0
 Group:          System Environment/Base
-URL:            https://github.com/rdo-management/ahc-tools
+URL:            https://pypi.python.org/pypi/ahc-tools
 
-Source0: https://pypi.python.org/packages/source/a/ahc-tools/ahc-tools-%{version}.tar.gz
+Source0: https://pypi.python.org/packages/source/a/ahc-tools/ahc-tools-%{upstream_version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python-setuptools
@@ -38,13 +39,13 @@ Reporting and matching tools for RDO-manager automatic health checks.
 
 %files
 %license LICENSE
-%doc README.rst AUTHORS ChangeLog
+%doc README.rst
 %{python2_sitelib}/ahc_tools*
 %exclude %{python2_sitelib}/ahc_tools/test*
 %{_bindir}/ahc-report
 %{_bindir}/ahc-match
 
 %changelog
-* Tue Apr 28 2015 John Trowbridge <jtrowbri@redhat.com> - 0.1
+* Tue Apr 28 2015 John Trowbridge <jtrowbri@redhat.com> - 0.1.0
 - Initial package build
 

@@ -10,11 +10,11 @@ Group:          System Environment/Base
 URL:            https://pypi.python.org/pypi/ahc-tools
 
 Source0:        https://pypi.python.org/packages/source/a/ahc-tools/ahc-tools-%{upstream_version}.tar.gz
-Source1:        config/compute.specs
-Source2:        config/control.specs
-Source3:        config/state
-Source4:        config/compute.cmdb
-Source5:        config/control.cmdb
+Source1:        compute.specs
+Source2:        control.specs
+Source3:        state
+Source4:        compute.cmdb
+Source5:        control.cmdb
 
 BuildArch:      noarch
 BuildRequires:  python-setuptools

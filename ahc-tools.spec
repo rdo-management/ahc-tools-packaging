@@ -3,13 +3,18 @@
 
 Name:           ahc-tools
 Summary:        Tools for RDO-manager automatic health checks
-Version:        0.1.0
-Release:        1%{?dist}
+Version:        0.1.1
+Release:        2%{?dist}
 License:        ASL 2.0
 Group:          System Environment/Base
 URL:            https://pypi.python.org/pypi/ahc-tools
 
-Source0: https://pypi.python.org/packages/source/a/ahc-tools/ahc-tools-%{upstream_version}.tar.gz
+Source0:        https://pypi.python.org/packages/source/a/ahc-tools/ahc-tools-%{upstream_version}.tar.gz
+Source1:        config/compute.specs
+Source2:        config/control.specs
+Source3:        config/state
+Source4:        config/compute.cmdb
+Source5:        config/control.cmdb
 
 BuildArch:      noarch
 BuildRequires:  python-setuptools
@@ -21,6 +26,7 @@ Requires: python-oslo-config
 
 %prep
 %autosetup -v -p 1 -n %{name}-%{upstream_version}
+
 rm -rf *.egg-info
 
 # Remove the requirements file so that pbr hooks don't add it
@@ -33,6 +39,12 @@ rm -rf {test-,}requirements.txt tools/{pip,test}-requires
 %install
 %{__python2} setup.py install -O1 --skip-build --root=%{buildroot}
 
+# edeploy matching configuration files
+install -p -D -m 644 %{SOURCE1} %{buildroot}/%{_sysconfdir}/ahc-tools/edeploy/compute.specs
+install -p -D -m 644 %{SOURCE2} %{buildroot}/%{_sysconfdir}/ahc-tools/edeploy/control.specs
+install -p -D -m 644 %{SOURCE3} %{buildroot}/%{_sysconfdir}/ahc-tools/edeploy/state
+install -p -D -m 644 %{SOURCE4} %{buildroot}/%{_sysconfdir}/ahc-tools/edeploy/compute.cmdb
+install -p -D -m 644 %{SOURCE5} %{buildroot}/%{_sysconfdir}/ahc-tools/edeploy/control.cmdb
 
 %description
 Reporting and matching tools for RDO-manager automatic health checks.
@@ -46,6 +58,9 @@ Reporting and matching tools for RDO-manager automatic health checks.
 %{_bindir}/ahc-match
 
 %changelog
-* Tue Apr 28 2015 John Trowbridge <jtrowbri@redhat.com> - 0.1.0
+* Fri May 08 2015 John Trowbridge <trown@redhat.com> - 0.1.1-1
+- Add default configuration for using edeploy matching
+
+* Tue Apr 28 2015 John Trowbridge <jtrowbri@redhat.com> - 0.1.0-1
 - Initial package build
 

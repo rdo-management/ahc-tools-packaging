@@ -4,7 +4,7 @@
 Name:           ahc-tools
 Summary:        Tools for RDO-manager automatic health checks
 Version:        0.1.1
-Release:        2%{?dist}
+Release:        1%{?dist}
 License:        ASL 2.0
 Group:          System Environment/Base
 URL:            https://pypi.python.org/pypi/ahc-tools
@@ -51,6 +51,7 @@ Reporting and matching tools for RDO-manager automatic health checks.
 
 %files
 %license LICENSE
+%config(noreplace) %attr(-,root,root) %{_sysconfdir}/ahc-tools/edeploy
 %doc README.rst
 %{python2_sitelib}/ahc_tools*
 %exclude %{python2_sitelib}/ahc_tools/test*

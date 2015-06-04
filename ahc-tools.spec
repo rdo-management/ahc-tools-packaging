@@ -13,8 +13,8 @@ Source0:        https://pypi.python.org/packages/source/a/ahc-tools/ahc-tools-%{
 Source1:        compute.specs
 Source2:        control.specs
 Source3:        state
-Source4:        compute.cmdb
-Source5:        control.cmdb
+Source4:        compute.cmdb.example
+Source5:        control.cmdb.example
 
 BuildArch:      noarch
 BuildRequires:  python-setuptools
@@ -43,8 +43,8 @@ rm -rf {test-,}requirements.txt tools/{pip,test}-requires
 install -p -D -m 644 %{SOURCE1} %{buildroot}/%{_sysconfdir}/ahc-tools/edeploy/compute.specs
 install -p -D -m 644 %{SOURCE2} %{buildroot}/%{_sysconfdir}/ahc-tools/edeploy/control.specs
 install -p -D -m 644 %{SOURCE3} %{buildroot}/%{_sysconfdir}/ahc-tools/edeploy/state
-install -p -D -m 644 %{SOURCE4} %{buildroot}/%{_sysconfdir}/ahc-tools/edeploy/compute.cmdb
-install -p -D -m 644 %{SOURCE5} %{buildroot}/%{_sysconfdir}/ahc-tools/edeploy/control.cmdb
+install -p -D -m 644 %{SOURCE4} %{buildroot}/%{_sysconfdir}/ahc-tools/edeploy/compute.cmdb.example
+install -p -D -m 644 %{SOURCE5} %{buildroot}/%{_sysconfdir}/ahc-tools/edeploy/control.cmdb.example
 
 %description
 Reporting and matching tools for RDO-manager automatic health checks.

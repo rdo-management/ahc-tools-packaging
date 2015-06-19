@@ -2,14 +2,14 @@
 %{!?upstream_version: %global upstream_version %{version}}
 
 Name:           ahc-tools
-Summary:        Tools for RDO-manager automatic health checks
-Version:        0.1.1
+Summary:        Tools for RDO-Manager automatic health checks
+Version:        0.2.0
 Release:        1%{?dist}
 License:        ASL 2.0
 Group:          System Environment/Base
 URL:            https://pypi.python.org/pypi/ahc-tools
 
-Source0:        https://pypi.python.org/packages/source/a/ahc-tools/ahc-tools-%{upstream_version}.tar.gz
+Source0:        https://testpypi.python.org/packages/source/a/ahc-tools/ahc-tools-%{upstream_version}.tar.gz
 Source1:        compute.specs
 Source2:        control.specs
 Source3:        state
@@ -39,6 +39,9 @@ rm -rf {test-,}requirements.txt tools/{pip,test}-requires
 %install
 %{__python2} setup.py install -O1 --skip-build --root=%{buildroot}
 
+# configuration contains passwords, thus 640
+install -p -D -m 640 example.conf %{buildroot}/%{_sysconfdir}/ahc-tools/ahc-tools.conf
+
 # edeploy matching configuration files
 install -p -D -m 644 %{SOURCE1} %{buildroot}/%{_sysconfdir}/ahc-tools/edeploy/compute.specs
 install -p -D -m 644 %{SOURCE2} %{buildroot}/%{_sysconfdir}/ahc-tools/edeploy/control.specs
@@ -51,7 +54,7 @@ Reporting and matching tools for RDO-manager automatic health checks.
 
 %files
 %license LICENSE
-%config(noreplace) %attr(-,root,root) %{_sysconfdir}/ahc-tools/edeploy
+%config(noreplace) %attr(-,root,root) %{_sysconfdir}/ahc-tools
 %doc README.rst
 %{python2_sitelib}/ahc_tools*
 %exclude %{python2_sitelib}/ahc_tools/test*
@@ -59,6 +62,9 @@ Reporting and matching tools for RDO-manager automatic health checks.
 %{_bindir}/ahc-match
 
 %changelog
+* Fri Jun 19 2015 John Trowbridge <trown@redhat.com> - 0.2.0-1
+- Add ahc-tools.conf to store Ironic and Swift API credentials
+
 * Fri May 08 2015 John Trowbridge <trown@redhat.com> - 0.1.1-1
 - Add default configuration for using edeploy matching
 
